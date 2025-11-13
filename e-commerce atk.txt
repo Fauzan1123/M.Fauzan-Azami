@@ -1,0 +1,80 @@
+﻿Microsoft Windows [Version 10.0.26200.6584]
+(c) Microsoft Corporation. All rights reserved.
+
+
+C:\Users\user> cd C:\xampp\mysql\bin
+
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 22
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+MariaDB [(none)]> use ecommerce_atk;
+Database changed
+MariaDB [ecommerce_atk]> SELECT p.product_id, p.product_name, c.category_name, p.price, p.stock
+    -> FROM products p
+    -> JOIN categories c ON p.category_id = c.category_id;
++------------+-------------------------+---------------+----------+-------+
+| product_id | product_name            | category_name | price    | stock |
++------------+-------------------------+---------------+----------+-------+
+|          1 | Pulpen Magic Merah      | Pulpen        |  5000.00 |   100 |
+|          2 | Pulpen Gel Hitam        | Pulpen        |  6000.00 |    80 |
+|          3 | Buku Tulis 70 Lembar    | Buku Tulis    |  7000.00 |   200 |
+|          4 | Buku Gambar A4          | Buku Tulis    |  8000.00 |   120 |
+|          5 | Kertas A4 80gsm         | Kertas        | 45000.00 |    50 |
+|          6 | Penghapus Faber-Castell | Penghapus     |  3000.00 |   150 |
+|          7 | Spidol Whiteboard Putih | Spidol        |  7000.00 |    90 |
++------------+-------------------------+---------------+----------+-------+
+7 rows in set (0.018 sec)
+
+
+MariaDB [ecommerce_atk]> SELECT o.order_id, c.name, o.order_date, o.status, o.total
+    -> FROM orders o
+    -> JOIN customers c ON o.customer_id = c.customer_id;
++----------+---------------------+---------------------+---------+----------+
+| order_id | name                | order_date          | status  | total    |
++----------+---------------------+---------------------+---------+----------+
+|        1 | M. Fauzan Azami     | 2025-10-09 14:23:30 | pending | 12000.00 |
+|        2 | Muhammad Adli Raffi | 2025-10-09 14:23:30 | paid    | 52000.00 |
++----------+---------------------+---------------------+---------+----------+
+2 rows in set (0.013 sec)
+
+
+MariaDB [ecommerce_atk]> SELECT o.order_id, c.name, p.product_name, oi.quantity, oi.subtotal
+    -> FROM order_items oi
+    -> JOIN products p ON oi.product_id = p.product_id
+    -> JOIN orders o ON oi.order_id = o.order_id
+    -> JOIN customers c ON o.customer_id = c.customer_id;
++----------+---------------------+----------------------+----------+----------+
+| order_id | name                | product_name         | quantity | subtotal |
++----------+---------------------+----------------------+----------+----------+
+|        1 | M. Fauzan Azami     | Pulpen Magic Merah   |        2 | 10000.00 |
+|        1 | M. Fauzan Azami     | Buku Gambar A4       |        1 |  2000.00 |
+|        2 | Muhammad Adli Raffi | Buku Tulis 70 Lembar |        2 | 14000.00 |
+|        2 | Muhammad Adli Raffi | Kertas A4 80gsm      |        1 | 38000.00 |
++----------+---------------------+----------------------+----------+----------+
+4 rows in set (0.006 sec)
+
+
+MariaDB [ecommerce_atk]> SELECT p.payment_id, o.order_id, c.name, p.amount, p.method, p.payment_date
+    -> FROM payments p
+    -> JOIN orders o ON p.order_id = o.order_id
+    -> JOIN customers c ON o.customer_id = c.customer_id;
++------------+----------+---------------------+----------+----------+---------------------+
+| payment_id | order_id | name                | amount   | method   | payment_date        |
++------------+----------+---------------------+----------+----------+---------------------+
+|          1 |        2 | Muhammad Adli Raffi | 52000.00 | transfer | 2025-10-09 14:27:25 |
++------------+----------+---------------------+----------+----------+---------------------+
+1 row in set (0.006 sec)
+
+
+MariaDB [ecommerce_atk]>

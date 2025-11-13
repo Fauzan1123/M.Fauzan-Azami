@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProSetup Store | E-Commerce Gaming Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Variabel Warna Kustom (Versi Awal Fauzan) */
+        :root {
+            --color-dark: #1a1a2e; /* Biru Tua Hampir Hitam */
+            --color-accent: #ff416c; /* Merah Muda Terang / Magenta (Aksen Gaming) */
+            --color-secondary-accent: #21d4fd; /* Biru Muda Terang */
+            --color-text-light: #f0f0f0;
+            --color-text-dim: #999;
+            --color-card-bg: #21213e;
+            --color-button: var(--color-accent);
+        }
+
+        /* RESET & FONT */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-dark); /* Dark Mode */
+            color: var(--color-text-light);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* HEADER & NAVIGASI */
+        header {
+            background-color: #111; /* Lebih hitam dari body */
+            padding: 15px 0;
+            border-bottom: 3px solid var(--color-accent); 
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 2px;
+            color: var(--color-text-light); /* Dikembalikan ke warna terang */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li a {
+            color: var(--color-text-light);
+            text-decoration: none;
+            padding: 0 15px;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover {
+            color: var(--color-accent);
+            border-bottom: 2px solid var(--color-accent);
+        }
+        
+        .cart-icon {
+            font-size: 1.5em;
+            cursor: pointer;
+            position: relative;
+            color: var(--color-secondary-accent);
+        }
+
+        #cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        
+        /* SECTION UMUM */
+        section {
+            padding: 80px 0; 
+            margin-bottom: 20px;
+            background-color: var(--color-card-bg); 
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        section h2 {
+            text-align: center;
+            color: var(--color-accent);
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--color-secondary-accent);
+            margin: 10px auto 0;
+            border-radius: 5px;
+        }
+
+        /* 1. BERANDA (HERO SECTION) */
+        #beranda {
+            background: linear-gradient(135deg, var(--color-dark) 0%, #111 100%);
+            text-align: center;
+            padding: 100px 0;
+            border-radius: 0; 
+            box-shadow: none;
+        }
+
+        #beranda h3 {
+            font-size: 3em;
+            margin-top: 0;
+            color: var(--color-secondary-accent);
+            font-family: 'Montserrat', sans-serif;
+            /* text-shadow dihapus */
+        }
+
+        #beranda h2 {
+            /* Warna dan font h2 tetap seperti di section umum */
+            color: var(--color-text-light); /* Diubah agar lebih menonjol */
+        }
+        #beranda h2::after {
+             display: none; /* Hapus garis di bawah h2 Hero */
+        }
+
+
+        #beranda p {
+            font-size: 1.2em;
+            color: var(--color-text-dim);
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-image: linear-gradient(to right, var(--color-accent), #e74c3c);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 65, 108, 0.4);
+        }
+
+        /* 2. PRODUK */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background: var(--color-dark);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.2);
+            border: 1px solid var(--color-accent);
+        }
+        
+        .product-card h3 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: var(--color-secondary-accent);
+        }
+        
+        .product-card p:first-of-type {
+            font-size: 0.9em;
+            color: var(--color-text-dim);
+            margin-bottom: 15px;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 200px; 
+            width: 100%;
+            object-fit: cover; 
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid var(--color-text-dim);
+        }
+
+        .price {
+            font-weight: 600;
+            color: var(--color-accent);
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart {
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+        }
+
+        .add-to-cart:hover {
+            background-color: #ff6083;
+            transform: translateY(-1px);
+        }
+
+        /* 3. KOMENTAR */
+        .comment-item {
+            background-color: var(--color-dark);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--color-secondary-accent);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .comment-item strong {
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .comment-item span {
+            float: right;
+            font-size: 0.8em;
+            color: var(--color-text-dim);
+        }
+
+        .comment-item p {
+            margin: 10px 0 0;
+            color: var(--color-text-light);
+            font-style: italic;
+        }
+
+        /* 4. PROFIL */
+        #profil .profil-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--color-dark);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        
+        #profil .owner-info {
+            border-bottom: 2px solid var(--color-secondary-accent);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        #profil .owner-info img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--color-accent);
+            margin-bottom: 15px;
+        }
+        
+        #profil .owner-info h3 {
+            margin: 5px 0 15px;
+            color: var(--color-secondary-accent);
+            font-size: 1.8em;
+        }
+        
+        #profil .owner-info p {
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        #profil .history-info h3 {
+            color: var(--color-accent);
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        
+        /* 5. ALAMAT (MAPS) */
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 400px; 
+            background-color: var(--color-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(80%) invert(10%); 
+        }
+
+        .address-info {
+            background-color: var(--color-dark);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .address-info h3 {
+            color: var(--color-accent);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #111;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 3px solid var(--color-secondary-accent);
+            color: var(--color-text-dim);
+        }
+
+        /* MODAL (Keranjang) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background-color: var(--color-dark);
+            margin: 15% auto; 
+            padding: 30px;
+            border: 1px solid var(--color-accent);
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.3);
+        }
+
+        .close-button {
+            color: var(--color-text-dim);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--color-accent);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        #cart-items li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--color-card-bg);
+        }
+
+        #cart-items li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>ProSetup Store</h1>
+            <nav>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#produk">Produk</a></li>
+                    <li><a href="#komentar">Ulasan</a></li>
+                    <li><a href="#profil">Profil</a></li>
+                    <li><a href="#alamat">Kontak</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="beranda" class="container">
+            <h3>Selamat Datang, Fauzan!</h3>
+            <h2>GEAR IMPIAN DIMULAI DARI SINI</h2>
+            <p>Dapatkan perlengkapan gaming terbaik dari brand-brand ternama seperti ASUS ROG, MSI, Razer, dan lain-lain.</p>
+            <a href="#produk" class="cta-button">JELAJAHI KATALOG PERALATAN</a>
+        </section>
+
+        <section id="produk" class="container">
+            <h2>PILIHAN TERBAIK UNTUK PRO PLAYER</h2>
+
+            <div class="product-grid">
+
+                <div class="product-card" data-id="1" data-name="Keyboard ROG Strix Scope" data-price="1300000">
+                    <img src="https://dlcdnwebimgs.asus.com/files/media/2CBFA29A-550D-489A-9442-A5CA0D3EEC57/v1/img/kv.jpg" alt="Keyboard ASUS ROG Strix Scope">
+                    <h3>ROG Strix Scope II RX</h3>
+                    <p>Brand: ASUS ROG | Switch Optik Mekanik</p>
+                    <p class="price">Rp 1.300.000</p>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+
+                <div class="product-card" data-id="2" data-name="Mouse Razer Viper Ultimate" data-price="1550000">
+                    <img src="https://cdn.mos.cms.futurecdn.net/G3XvcS9kyMDuVcWm7qDGXb.jpg" alt="Mouse Razer Viper Ultimate">
+                    <h3>Razer Viper Ultimate</h3>
+                    <p>Brand: RAZER | Wireless, 74 gram, 20K DPI</p>
+                    <p class="price">Rp 1.550.000</p>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+
+                <div class="product-card" data-id="3" data-name="Headset HyperX Cloud Alpha" data-price="1100000">
+                    <img src="https://static-01.daraz.pk/p/4a0fa9aa312f12de9cc7e59ef96fbdb8.jpg" alt="Headset HyperX Cloud Alpha">
+                    <h3>HyperX Cloud Alpha S</h3>
+                    <p>Brand: HYPERX | 7.1 Surround Sound, Dual Chamber</p>
+                    <p class="price">Rp 1.100.000</p>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+                
+                <div class="product-card" data-id="4" data-name="Monitor MSI Optix 144Hz" data-price="3500000">
+                    <img src="https://asset.msi.com/resize/image/global/product/product_6_20170630130057_5955db09c1f90.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png" alt="Monitor MSI Optix">
+                    <h3>MSI Optix G24</h3>
+                    <p>Brand: MSI | 24 Inci, 144Hz, 1ms Response Time</p>
+                    <p class="price">Rp 3.500.000</p>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+                
+                <div class="product-card" data-id="5" data-name="Kursi Predator Gaming" data-price="4200000">
+                    <img src="https://www.yangcanggih.com/wp-content/uploads/2018/12/acer-predator-thronos-1.jpg" alt="Kursi Gaming Acer Predator">
+                    <h3>Acer Predator Throne</h3>
+                    <p>Brand: ACER | Ergonomis, Kulit Premium, RGB Ready</p>
+                    <p class="price">Rp 4.200.000</p>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+
+                <div class="product-card" data-id="6" data-name="Mousepad Corsair MM700" data-price="750000">
+                    <img src="https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mousepads/base-mm700-rgb-config/Gallery/MM700_RGB_3XL_02.webp" alt="Mousepad Corsair MM700">
+                    <h3>Corsair MM700 RGB</h3>
+                    <p>Brand: CORSAIR | XL Size, RGB Lighting, Cloth Surface</p>
+                    <p class="price">Rp 750.000</p>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="komentar" class="container">
+            <h2>APA KATA MEREKA</h2>
+            
+            <div class="comment-item">
+                <strong><i class="fas fa-user-circle"></i> Fajar 'GamerPro' (Bintang 5)</strong> <span>2 hari lalu</span>
+                <p>Keyboard ROG Strix-nya responsif parah! Rasanya seperti benar-benar meningkatkan *skill* bermainku.</p>
+            </div>
+            <div class="comment-item">
+                <strong><i class="fas fa-user-circle"></i> Siska 'ZoroFan21' (Bintang 4)</strong> <span>1 minggu lalu</span>
+                <p>Mouse Razer Viper sangat ringan dan akurat. Top!</p>
+            </div>
+            <div class="comment-item">
+                <strong><i class="fas fa-user-circle"></i> Bima 'ElitePlayer' (Bintang 5)</strong> <span>1 bulan lalu</span>
+                <p>Kursi gaming Predator sangat nyaman. Bikin *stream* saya jadi lebih profesional. *Worth the price*!</p>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px;">
+                <button class="cta-button" style="background-image: linear-gradient(to right, var(--color-secondary-accent), #3498db);">Tulis Ulasan Anda</button>
+            </p>
+        </section>
+
+        <section id="profil" class="container">
+            <h2>PROFIL PEMILIK & PERUSAHAAN</h2>
+            <div class="profil-container">
+                
+                <div class="owner-info">
+                    <img src="https://lh3.googleusercontent.com/a/ACg8ocI_2Yz3XY9OP_4pXdaxWLDbhTxyr6jTKVFMfMAg97Df89frAio=s288-c-no" alt="Foto Profil Fauzan">
+                    <h3>M. Fauzan Azami</h3>
+                    <p>
+                        <i class="fas fa-envelope"></i> Email: <a href="mailto:mfauzanazamiii@gmail.com" style="color: var(--color-secondary-accent); text-decoration: none;">mfauzanazamiii@gmail.com</a>
+                    </p>
+                    <p>
+                        <i class="fas fa-phone"></i> HP: 087895397814
+                    </p>
+                    <p style="margin-top: 20px; color: var(--color-text-light);">
+                        Peran: **Pendiri & Pengembang Utama** Website ProSetup Store.
+                    </p>
+                </div>
+
+                <div class="history-info">
+                    <h3><i class="fas fa-history"></i> Sejarah Perusahaan</h3>
+                    <p style="text-align: justify; color: var(--color-text-dim);">
+                        ProSetup Store (PT. PSS) didirikan pada **Januari 2020** dengan tekad untuk menyediakan solusi perangkat keras *gaming high-end* di pasar Indonesia. Berawal dari toko kecil yang fokus pada *custom keyboard*, kami berkembang pesat menjadi *e-commerce* terpercaya yang menggandeng *brand* kelas dunia seperti ASUS ROG, Razer, dan MSI. Kami percaya, performa maksimal hanya dicapai dengan *gear* yang maksimal.
+                    </p>
+                    <p style="text-align: center; font-style: italic; color: var(--color-secondary-accent);">
+                        "Didirikan pada **Januari 2020** dengan semangat untuk *esports*."
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="alamat" class="container">
+            <h2>LOKASI KAMI</h2>
+            
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.302387140417!2d106.815964814769!3d-6.216335962534579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f40c74b971a7%3A0xc0d87422f281e220!2sJl.%20Jend.%20Sudirman%2C%20Jakarta%20Pusat!5e0!3m2!1sid!2sid!4v1634976000000!5m2!1sid!2sid" 
+                    allowfullscreen="" 
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <div class="address-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Gamer's Hub Tower</h3>
+                <p>Jl. Jend. Sudirman Kav. 52-53, Jakarta Selatan (SCBD Area)</p>
+                <p><strong>Kode Pos:</strong> 12190 | <strong>Kota:</strong> Jakarta</p>
+                <p style="margin-top: 20px;"><i class="fas fa-phone"></i> +62 721-8687-2943 GAMER | <i class="fas fa-envelope"></i> support@prosetup.com</p>
+            </div>
+        </section>
+    </main>
+    
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3>KERANJANG BELANJA</h3>
+            <ul id="cart-items">
+                </ul>
+            <p style="font-size: 1.3em;">TOTAL: <span id="cart-total" style="color: var(--color-secondary-accent);">Rp 0</span></p>
+            <button id="checkout-button" class="cta-button">LANJUTKAN KE CHECKOUT</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Gamer's Hub Pro ™ | 2025. All Rights Reserved. POWERED BY ESPORTS.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Keranjang Belanja (Menggunakan Local Storage)
+        let cart = JSON.parse(localStorage.getItem('gamingCart')) || [];
+
+        const cartCountElement = document.getElementById('cart-count');
+        const cartItemsElement = document.getElementById('cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart'); 
+
+        // Elemen Modal
+        const modal = document.getElementById("cart-modal");
+        const cartIcon = document.querySelector(".cart-icon");
+        const closeButton = document.querySelector(".close-button");
+
+        // Fungsi untuk menyimpan keranjang ke Local Storage
+        function saveCart() {
+            localStorage.setItem('gamingCart', JSON.stringify(cart));
+        }
+
+        // Fungsi untuk memperbarui tampilan keranjang
+        function updateCartDisplay() {
+            cartItemsElement.innerHTML = ''; 
+            let total = 0;
+
+            cart.forEach(item => {
+                const listItem = document.createElement('li');
+                const itemPrice = item.price * item.quantity;
+                
+                // Format harga menjadi format Rupiah
+                const formattedPrice = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                }).format(itemPrice);
+
+                listItem.innerHTML = `
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>${formattedPrice}</span>
+                `;
+                cartItemsElement.appendChild(listItem);
+                total += itemPrice;
+            });
+
+            // Perbarui total dan jumlah item
+            const formattedTotal = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(total);
+            
+            cartTotalElement.textContent = formattedTotal;
+            cartCountElement.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            saveCart();
+        }
+
+        // Fungsi untuk menambah item ke keranjang
+        function addItemToCart(event) {
+            const card = event.target.closest('.product-card');
+            const id = card.dataset.id;
+            const name = card.dataset.name;
+            const price = parseInt(card.dataset.price);
+
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+
+            alert(`${name} telah ditambahkan ke keranjang!`);
+            updateCartDisplay();
+        }
+
+        // Tambahkan event listener ke semua tombol "Tambah ke Keranjang"
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', addItemToCart);
+        });
+
+
+        // LOGIKA MODAL (POP-UP KERANJANG)
+
+        // Buka modal saat ikon keranjang diklik
+        cartIcon.addEventListener('click', () => {
+            modal.style.display = "block";
+        });
+
+        // Tutup modal saat tombol 'x' diklik
+        closeButton.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        // Tutup modal saat user mengklik di luar area modal
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Event listener untuk tombol Checkout
+        document.getElementById('checkout-button').addEventListener('click', () => {
+            if (cart.length > 0) {
+                alert("Terima kasih, Fauzan! Pesanan Anda sedang diproses. Total: " + cartTotalElement.textContent);
+                cart = []; // Kosongkan keranjang setelah checkout
+                updateCartDisplay();
+                modal.style.display = "none";
+            } else {
+                alert("Keranjang Anda masih kosong. Mari berbelanja!");
+            }
+        });
+
+        // Panggil fungsi ini saat halaman dimuat pertama kali
+        updateCartDisplay();
+    </script>
+
+</body>
+</html>
